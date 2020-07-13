@@ -1,6 +1,7 @@
 // HTTP POST REQUEST
 import React, { Component } from "react";
-
+// step1 first import axios
+import axios from "axios";
 class PostForm extends Component {
   constructor(props) {
     super(props);
@@ -16,9 +17,17 @@ class PostForm extends Component {
   };
 
   submitHandler = (e) => {
-    e.preventDefault()
-    console.log(this.state)
-  }
+    e.preventDefault();
+    console.log(this.state);
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts", this.state)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   render() {
     const { userId, title, body } = this.state;
@@ -49,7 +58,7 @@ class PostForm extends Component {
               onChange={this.changeHandler}
             />
           </div>
-          <button type="submit" >Submit</button>
+          <button type="submit">Submit</button>
         </form>
       </div>
     );
