@@ -19,6 +19,7 @@ class PostList extends Component {
         axios.get('https://jsonplaceholder.typicode.com/posts')//this methods accepts the API endpoint as its arguments(now we are making a get request), but how do we access tje data that is returned, well axios is promised based library 
             .then(response => {
                 console.log(response)
+                this.setState({posts: response.data})
             })
             .catch(error => {
                 console.log(error)
@@ -26,9 +27,15 @@ class PostList extends Component {
     }
 
     render() {
+        const { posts } = this.state
         return (
             <div>
                 List of Posts
+                {
+                    posts.length?
+                    posts.map(post => <div key={post.id}>{post.title}</div> ):
+                    null
+                }
             </div>
         )
     }
